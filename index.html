@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <div class="container">
+    <h2>Product list</h2>
+   <span>Product1</span> <button onclick="addToBasket('Product1')">Buy</button>
+   <br>
+   <span>Product2</span> <button onclick="addToBasket('Product2')">Buy</button>
+   <br>
+   <span>Product3</span> <button onclick="addToBasket('Product3')">Buy</button>
+   <br>
+   <span>Product4</span> <button onclick="addToBasket('Product4')">Buy</button>
+   <br>
+  
+<hr>
+    <h2>Список обраних товарів</h2>
+    <ul id ="basket"></ul>
+    <br>
+    <button onclick="clearBasket()">Очистити</button>
+
+    <script>
+        function addToBasket(product) {
+            let basket = JSON.parse(localStorage.getItem('basket')) || [];
+            basket.push(product);
+            localStorage.setItem('basket', JSON.stringify(basket));
+            updateBasketDisplay();
+        }
+
+        function clearBasket() {
+            localStorage.removeItem('basket');
+            updateBasketDisplay();
+        }
+
+        function updateBasketDisplay() {
+            let basket = JSON.parse(localStorage.getItem('basket')) || [];
+            const basketElement = document.getElementById('basket');
+            basketElement.innerHTML = '';
+            basket.forEach(product => {
+                const li = document.createElement('li');
+                li.textContent = product;
+                basketElement.appendChild(li);
+            });
+        }
+    
+        updateBasketDisplay();
+    </script>
+    </div>
+</body>
+</html>
